@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Copa Robótica 2026 · Colegio Secundario Tintina</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Rajdhani:wght@400;600;700&family=Exo+2:ital,wght@0,300;0,600;0,800;1,300&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── RESET & BASE ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --azul:      #0A2463;
+      --azul-med:  #1E56A0;
+      --azul-claro:#2176FF;
+      --acento:    #F5A623;
+      --acento2:   #FF6B35;
+      --verde:     #00C896;
+      --fondo:     #030B1A;
+      --fondo2:    #061020;
+      --texto:     #D8E8FF;
+      --texto2:    #8AA8CC;
+      --card-bg:   rgba(30,86,160,0.12);
+      --card-border:rgba(33,118,255,0.25);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Exo 2', sans-serif;
+      background: var(--fondo);
+      color: var(--texto);
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* ─── GRID BACKGROUND ──────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(33,118,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(33,118,255,.04) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+    }
+
+    /* ─── NAVBAR ───────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(3,11,26,.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(33,118,255,.2);
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .nav-logo {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700; font-size: 1.1rem;
+      color: var(--acento);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Space Mono', monospace;
+      font-size: .7rem; color: var(--texto2);
+      text-decoration: none; text-transform: uppercase;
+      letter-spacing: 1px; transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--acento); }
+
+    /* ─── HERO ─────────────────────────────────────────────── */
+    #hero {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 80px 2rem 2rem;
+      overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(33,118,255,.18) 0%, transparent 70%);
+      top: 50%; left: 50%; transform: translate(-50%,-60%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-block;
+      font-family: 'Space Mono', monospace;
+      font-size: .7rem; letter-spacing: 3px;
+      color: var(--acento);
+      border: 1px solid var(--acento);
+      padding: .35rem 1.2rem;
+      border-radius: 2px;
+      margin-bottom: 2rem;
+      animation: fadeDown .6s ease both;
+    }
+    .hero-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(3rem, 10vw, 7rem);
+      font-weight: 700;
+      line-height: .95;
+      letter-spacing: -1px;
+      animation: fadeDown .6s .15s ease both;
+    }
+    .hero-title .line1 { display: block; color: var(--texto); }
+    .hero-title .line2 {
+      display: block;
+      background: linear-gradient(90deg, var(--azul-claro), var(--acento));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-title .line3 { display: block; color: var(--texto2); font-size: .55em; font-weight: 300; letter-spacing: 4px; margin-top: .4rem; }
+    .hero-sub {
+      font-size: 1.1rem; font-weight: 300;
+      color: var(--texto2); max-width: 600px;
+      margin: 2rem auto 0;
+      line-height: 1.7;
+      animation: fadeDown .6s .3s ease both;
+    }
+    .hero-cta {
+      margin-top: 3rem;
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+      animation: fadeDown .6s .45s ease both;
+    }
+    .btn {
+      font-family: 'Space Mono', monospace;
+      font-size: .75rem; letter-spacing: 2px;
+      padding: .85rem 2rem;
+      text-decoration: none;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: all .25s;
+    }
+    .btn-primary {
+      background: var(--azul-claro);
+      color: #fff;
+      border: 1px solid var(--azul-claro);
+    }
+    .btn-primary:hover { background: transparent; color: var(--azul-claro); }
+    .btn-outline {
+      background: transparent;
+      color: var(--acento);
+      border: 1px solid var(--acento);
+    }
+    .btn-outline:hover { background: var(--acento); color: var(--fondo); }
+
+    /* Scroll indicator */
+    .scroll-hint {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: .5rem;
+      opacity: .4; animation: fadeDown .6s .8s ease both;
+    }
+    .scroll-hint span { font-family: 'Space Mono', monospace; font-size: .6rem; letter-spacing: 2px; color: var(--texto2); }
+    .scroll-arrow { width: 1px; height: 40px; background: linear-gradient(var(--azul-claro), transparent); animation: scrollPulse 2s infinite; }
+
+    /* ─── ESTADO ACTUAL ─────────────────────────────────────── */
+    #estado {
+      position: relative; z-index: 1;
+      padding: 5rem 2rem;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: .65rem; letter-spacing: 4px; color: var(--azul-claro);
+      text-transform: uppercase; margin-bottom: .8rem;
+    }
+    .section-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 700; color: var(--texto);
+      margin-bottom: 1rem;
+    }
+    .section-title span { color: var(--azul-claro); }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .status-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 1.8rem;
+      position: relative; overflow: hidden;
+      transition: transform .3s, border-color .3s;
+      opacity: 0;
+      animation: fadeUp .6s ease forwards;
+    }
+    .status-card:hover { transform: translateY(-4px); border-color: var(--azul-claro); }
+    .status-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .status-card.done::before   { background: var(--verde); }
+    .status-card.active::before { background: var(--acento); }
+    .status-card.pending::before{ background: var(--texto2); opacity: .3; }
+    .card-num {
+      font-family: 'Space Mono', monospace;
+      font-size: .7rem; color: var(--texto2); letter-spacing: 2px;
+      margin-bottom: 1rem;
+    }
+    .card-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.3rem; font-weight: 700; color: var(--texto);
+      margin-bottom: .4rem;
+    }
+    .card-date {
+      font-family: 'Space Mono', monospace;
+      font-size: .65rem; color: var(--azul-claro); letter-spacing: 1px;
+      margin-bottom: .8rem;
+    }
+    .card-desc { font-size: .9rem; color: var(--texto2); line-height: 1.6; }
+    .card-badge {
+      display: inline-block; margin-top: 1.2rem;
+      font-family: 'Space Mono', monospace; font-size: .6rem;
+      letter-spacing: 2px; padding: .3rem .8rem; border-radius: 2px;
+      text-transform: uppercase;
+    }
+    .badge-done   { background: rgba(0,200,150,.15); color: var(--verde); border: 1px solid rgba(0,200,150,.3); }
+    .badge-active { background: rgba(245,166,35,.15); color: var(--acento); border: 1px solid rgba(245,166,35,.3); }
+    .badge-pending{ background: rgba(136,168,204,.1); color: var(--texto2); border: 1px solid rgba(136,168,204,.15); }
+    .card-icon { position: absolute; top: 1.4rem; right: 1.4rem; font-size: 1.6rem; opacity: .4; }
+
+    /* ─── SOBRE LA COPA ─────────────────────────────────────── */
+    #sobre {
+      position: relative; z-index: 1;
+      padding: 5rem 2rem;
+      background: linear-gradient(to bottom, transparent, rgba(10,36,99,.15), transparent);
+    }
+    .sobre-inner { max-width: 1100px; margin: 0 auto; }
+    .sobre-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem; margin-top: 3rem;
+      align-items: start;
+    }
+    .sobre-text p {
+      font-size: 1rem; color: var(--texto2);
+      line-height: 1.8; margin-bottom: 1.2rem;
+    }
+    .sobre-text p strong { color: var(--texto); }
+    .feature-list { list-style: none; display: flex; flex-direction: column; gap: .8rem; margin-top: 1.5rem; }
+    .feature-list li {
+      display: flex; align-items: flex-start; gap: .8rem;
+      font-size: .95rem; color: var(--texto2); line-height: 1.5;
+    }
+    .feature-list li::before {
+      content: '→';
+      color: var(--azul-claro); font-family: 'Space Mono', monospace;
+      font-size: .8rem; flex-shrink: 0; margin-top: .1rem;
+    }
+    .about-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px; padding: 2rem;
+    }
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 2.5rem; font-weight: 700;
+      background: linear-gradient(135deg, var(--azul-claro), var(--acento));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      line-height: 1;
+    }
+    .stat-label { font-family: 'Space Mono', monospace; font-size: .6rem; color: var(--texto2); letter-spacing: 1px; margin-top: .4rem; text-transform: uppercase; }
+
+    /* ─── PREMIOS ────────────────────────────────────────────── */
+    #premios {
+      position: relative; z-index: 1;
+      padding: 5rem 2rem;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .premios-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .premio-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px; padding: 2rem;
+      text-align: center;
+      transition: transform .3s, box-shadow .3s;
+      opacity: 0; animation: fadeUp .6s ease forwards;
+    }
+    .premio-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(33,118,255,.15);
+    }
+    .premio-emoji { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
+    .premio-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.1rem; font-weight: 700; color: var(--texto);
+      margin-bottom: .6rem;
+    }
+    .premio-desc { font-size: .85rem; color: var(--texto2); line-height: 1.6; }
+
+    /* ─── TIMELINE ───────────────────────────────────────────── */
+    #timeline {
+      position: relative; z-index: 1;
+      padding: 5rem 2rem;
+      background: linear-gradient(to bottom, transparent, rgba(10,36,99,.1), transparent);
+    }
+    .timeline-inner { max-width: 800px; margin: 0 auto; }
+    .tl-items { position: relative; margin-top: 3rem; }
+    .tl-items::before {
+      content: '';
+      position: absolute; left: 20px; top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--azul-claro), transparent);
+    }
+    .tl-item {
+      display: flex; gap: 2rem;
+      margin-bottom: 2.5rem;
+      opacity: 0; animation: fadeUp .5s ease forwards;
+    }
+    .tl-dot {
+      width: 41px; height: 41px; flex-shrink: 0;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Space Mono', monospace; font-size: .75rem; font-weight: 700;
+      position: relative; z-index: 1;
+    }
+    .tl-dot.done   { background: var(--verde); color: var(--fondo); box-shadow: 0 0 20px rgba(0,200,150,.4); }
+    .tl-dot.active { background: var(--acento); color: var(--fondo); box-shadow: 0 0 20px rgba(245,166,35,.4); animation: pulse 2s infinite; }
+    .tl-dot.pending{ background: rgba(136,168,204,.15); color: var(--texto2); border: 1px solid var(--card-border); }
+    .tl-content { padding-top: .6rem; }
+    .tl-fecha { font-family: 'Space Mono', monospace; font-size: .6rem; color: var(--azul-claro); letter-spacing: 2px; margin-bottom: .4rem; }
+    .tl-titulo { font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--texto); margin-bottom: .3rem; }
+    .tl-desc { font-size: .85rem; color: var(--texto2); line-height: 1.6; }
+
+    /* ─── CALL TO ACTION ─────────────────────────────────────── */
+    #cta {
+      position: relative; z-index: 1;
+      padding: 5rem 2rem; text-align: center;
+    }
+    .cta-box {
+      max-width: 700px; margin: 0 auto;
+      background: linear-gradient(135deg, rgba(10,36,99,.6), rgba(30,86,160,.3));
+      border: 1px solid rgba(33,118,255,.3);
+      border-radius: 12px; padding: 4rem 2rem;
+      position: relative; overflow: hidden;
+    }
+    .cta-box::before {
+      content: '';
+      position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+      background: radial-gradient(circle at center, rgba(33,118,255,.08) 0%, transparent 60%);
+      animation: rotateBg 20s linear infinite;
+    }
+    .cta-emoji { font-size: 3rem; margin-bottom: 1rem; display: block; position: relative; }
+    .cta-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(1.6rem, 4vw, 2.5rem); font-weight: 700;
+      color: var(--texto); margin-bottom: 1rem; position: relative;
+    }
+    .cta-title span { color: var(--acento); }
+    .cta-desc { font-size: 1rem; color: var(--texto2); max-width: 480px; margin: 0 auto 2rem; line-height: 1.7; position: relative; }
+    .cta-link {
+      display: inline-block; position: relative;
+      font-family: 'Space Mono', monospace; font-size: .7rem;
+      color: var(--azul-claro); letter-spacing: 1px;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(33,118,255,.3);
+      transition: border-color .2s, color .2s;
+    }
+    .cta-link:hover { color: var(--acento); border-color: var(--acento); }
+
+    /* ─── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      position: relative; z-index: 1;
+      border-top: 1px solid rgba(33,118,255,.15);
+      padding: 2rem;
+      text-align: center;
+    }
+    footer p {
+      font-family: 'Space Mono', monospace;
+      font-size: .65rem; color: var(--texto2); letter-spacing: 1px;
+    }
+    footer a { color: var(--azul-claro); text-decoration: none; }
+
+    /* ─── ANIMACIONES ────────────────────────────────────────── */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: .3; }
+      50% { opacity: 1; }
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 10px rgba(245,166,35,.4); }
+      50%       { box-shadow: 0 0 28px rgba(245,166,35,.7); }
+    }
+    @keyframes rotateBg {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-8px); }
+    }
+
+    /* ─── INTERSECTION OBSERVER DELAYS ──────────────────────── */
+    .status-card:nth-child(1), .premio-card:nth-child(1), .tl-item:nth-child(1) { animation-delay: .05s; }
+    .status-card:nth-child(2), .premio-card:nth-child(2), .tl-item:nth-child(2) { animation-delay: .15s; }
+    .status-card:nth-child(3), .premio-card:nth-child(3), .tl-item:nth-child(3) { animation-delay: .25s; }
+    .status-card:nth-child(4), .premio-card:nth-child(4), .tl-item:nth-child(4) { animation-delay: .35s; }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .sobre-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .stat-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">CST · Tintina</div>
+    <ul class="nav-links">
+      <li><a href="#estado">Estado</a></li>
+      <li><a href="#sobre">La Copa</a></li>
+      <li><a href="#premios">Premios</a></li>
+      <li><a href="#timeline">Etapas</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-badge">Revista Digital · 2026</div>
+    <h1 class="hero-title">
+      <span class="line1">COPA ROBÓTICA</span>
+      <span class="line2">EDUCABOT 2026</span>
+      <span class="line3">Colegio Secundario Tintina · Santiago del Estero</span>
+    </h1>
+    <p class="hero-sub">
+      Varios grupos de nuestros estudiantes se inscribieron en la competencia de robótica más importante del país.
+      Etapa 1 completada. El futuro se construye desde Tintina.
+    </p>
+    <div class="hero-cta">
+      <a href="#estado" class="btn btn-primary">Ver estado →</a>
+      <a href="https://www.coparobotica.com/" target="_blank" class="btn btn-outline">coparobotica.com ↗</a>
+    </div>
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ESTADO ACTUAL -->
+  <section id="estado">
+    <div class="section-label">// Estado actual</div>
+    <h2 class="section-title">¿Cómo estamos?</h2>
+    <p style="color:var(--texto2); max-width:600px; line-height:1.7; font-size:.95rem;">
+      Nuestros equipos finalizaron la primera etapa con dedicación y esfuerzo. Ahora aguardamos con expectativa los resultados que definirán quiénes avanzan.
+    </p>
+    <div class="status-grid">
+      <div class="status-card done" style="animation-delay:.05s">
+        <div class="card-icon">✅</div>
+        <div class="card-num">// Etapa 01</div>
+        <div class="card-title">Desafíos Online</div>
+        <div class="card-date">30 ABR — 21 MAY · FINALIZADA</div>
+        <div class="card-desc">Habilidades blandas y pensamiento computacional. Todos nuestros equipos completaron esta etapa.</div>
+        <span class="card-badge badge-done">Completada</span>
+      </div>
+      <div class="status-card active" style="animation-delay:.15s">
+        <div class="card-icon">⏳</div>
+        <div class="card-num">// Etapa 02</div>
+        <div class="card-title">Programación a Distancia</div>
+        <div class="card-date">22 — 28 MAY · EN ESPERA</div>
+        <div class="card-desc">Creación de modelos de Inteligencia Artificial. A la espera de saber qué equipos avanzan a esta instancia.</div>
+        <span class="card-badge badge-active">Aguardando resultados</span>
+      </div>
+      <div class="status-card pending" style="animation-delay:.25s">
+        <div class="card-icon">🏟️</div>
+        <div class="card-num">// Etapa 03</div>
+        <div class="card-title">Semifinales Provinciales</div>
+        <div class="card-date">2 — 17 JUL · PRÓXIMAMENTE</div>
+        <div class="card-desc">Competencia presencial a nivel provincial. Un día de competencia en vivo.</div>
+        <span class="card-badge badge-pending">Por definir</span>
+      </div>
+      <div class="status-card pending" style="animation-delay:.35s">
+        <div class="card-icon">🏆</div>
+        <div class="card-num">// Etapa 04</div>
+        <div class="card-title">Final Nacional</div>
+        <div class="card-date">5 — 6 AGO · NEUQUÉN</div>
+        <div class="card-desc">La gran final nacional. Los mejores equipos del país se enfrentan dos días en Neuquén.</div>
+        <span class="card-badge badge-pending">Por definir</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE LA COPA -->
+  <section id="sobre">
+    <div class="sobre-inner">
+      <div class="section-label">// La competencia</div>
+      <h2 class="section-title">¿Qué es la <span>Copa Robótica</span>?</h2>
+      <div class="sobre-grid">
+        <div class="sobre-text">
+          <p>La <strong>Copa Robótica Educabot</strong> es una iniciativa nacional, inclusiva y completamente gratuita que impulsa al joven talento argentino a través de la robótica, la innovación y el trabajo colaborativo.</p>
+          <p>Está abierta a estudiantes de escuelas públicas y privadas de todo el país, con o sin experiencia previa. <strong>No se necesitan conocimientos previos</strong> para participar.</p>
+          <p>Lo más emocionante: el equipo campeón viaja a <strong>Corea del Sur</strong> para representar a Argentina en el <strong>FIRST Global Challenge</strong>, el mundial de robótica.</p>
+          <ul class="feature-list">
+            <li>Equipos de 5 estudiantes + 1 docente mentor</li>
+            <li>Estudiantes de 15 a 18 años de todo el país</li>
+            <li>Los equipos mixtos suman beneficios adicionales</li>
+            <li>Kits de robótica gratuitos para cada escuela</li>
+            <li>Capacitación y mentoreo docente incluidos</li>
+          </ul>
+        </div>
+        <div class="about-card">
+          <div class="section-label" style="margin-bottom:1.5rem">// En números</div>
+          <div class="stat-grid">
+            <div class="stat-item">
+              <div class="stat-num">4</div>
+              <div class="stat-label">Etapas</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num">5</div>
+              <div class="stat-label">Integrantes por equipo</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num">18—</div>
+              <div class="stat-label">Hasta 18 años</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num">KR</div>
+              <div class="stat-label">Mundial en Corea</div>
+            </div>
+          </div>
+          <div style="margin-top:2rem; padding-top:1.5rem; border-top:1px solid var(--card-border);">
+            <div class="section-label" style="margin-bottom:.8rem">// Nuestro colegio</div>
+            <p style="font-size:.9rem; color:var(--texto2); line-height:1.7;">
+              Varios grupos del <strong style="color:var(--texto)">Colegio Secundario Tintina</strong> se inscribieron este año, representando a nuestra comunidad en esta competencia de alcance nacional.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREMIOS -->
+  <section id="premios">
+    <div class="section-label">// Reconocimientos</div>
+    <h2 class="section-title">Premios y experiencias</h2>
+    <div class="premios-grid">
+      <div class="premio-card" style="animation-delay:.05s">
+        <span class="premio-emoji">✈️</span>
+        <div class="premio-title">Viaje a Corea del Sur</div>
+        <div class="premio-desc">El equipo campeón representa a Argentina en el <strong>FIRST Global Challenge</strong>, el mundial de robótica.</div>
+      </div>
+      <div class="premio-card" style="animation-delay:.15s">
+        <span class="premio-emoji">💰</span>
+        <div class="premio-title">$100.000.000 ARS*</div>
+        <div class="premio-desc">Premios distribuidos entre los puestos 1°, 2° y 3° de cada provincia, tanto individuales como por alianzas.</div>
+      </div>
+      <div class="premio-card" style="animation-delay:.25s">
+        <span class="premio-emoji">🤖</span>
+        <div class="premio-title">Kit de Robótica</div>
+        <div class="premio-desc">Todos los equipos participantes reciben kits de robótica gratuitos que quedan en la escuela para siempre.</div>
+      </div>
+      <div class="premio-card" style="animation-delay:.35s">
+        <span class="premio-emoji">🎓</span>
+        <div class="premio-title">Formación Integral</div>
+        <div class="premio-desc">Certificados, mentoreo docente, capacitación en IA y una experiencia de aprendizaje única e inolvidable.</div>
+      </div>
+    </div>
+    <p style="font-size:.75rem; color:var(--texto2); margin-top:1.5rem; font-family:'Space Mono',monospace;">
+      * Los $100.000.000 representan el valor estimado total de los premios otorgados, no un monto en efectivo.
+    </p>
+  </section>
+
+  <!-- TIMELINE -->
+  <section id="timeline">
+    <div class="timeline-inner">
+      <div class="section-label">// Cronograma 2026</div>
+      <h2 class="section-title">Recorrido de la competencia</h2>
+      <div class="tl-items">
+        <div class="tl-item" style="animation-delay:.05s">
+          <div class="tl-dot done">01</div>
+          <div class="tl-content">
+            <div class="tl-fecha">30 ABR — 21 MAY 2026</div>
+            <div class="tl-titulo">Desafíos Online ✅</div>
+            <div class="tl-desc">Habilidades blandas y pensamiento computacional. Una semana de trabajo en equipo de manera virtual. <strong style="color:var(--verde)">Nuestros equipos completaron esta etapa.</strong></div>
+          </div>
+        </div>
+        <div class="tl-item" style="animation-delay:.15s">
+          <div class="tl-dot active">02</div>
+          <div class="tl-content">
+            <div class="tl-fecha">22 — 28 MAY 2026</div>
+            <div class="tl-titulo">Programación a Distancia ⏳</div>
+            <div class="tl-desc">Creación de modelos de Inteligencia Artificial. Dos días de trabajo intensivo. <strong style="color:var(--acento)">Aguardamos saber qué equipos clasifican.</strong></div>
+          </div>
+        </div>
+        <div class="tl-item" style="animation-delay:.25s">
+          <div class="tl-dot pending">03</div>
+          <div class="tl-content">
+            <div class="tl-fecha">2 — 17 JUL 2026</div>
+            <div class="tl-titulo">Semifinales Provinciales</div>
+            <div class="tl-desc">Competencia presencial a nivel provincial. Dos semanas de preparación y un día de competencia en vivo frente a otros equipos de Santiago del Estero.</div>
+          </div>
+        </div>
+        <div class="tl-item" style="animation-delay:.35s">
+          <div class="tl-dot pending">04</div>
+          <div class="tl-content">
+            <div class="tl-fecha">5 — 6 AGO 2026 · NEUQUÉN</div>
+            <div class="tl-titulo">Final Nacional 🏆</div>
+            <div class="tl-desc">La gran final en Neuquén. Los mejores equipos del país se enfrentan durante dos días. El ganador viaja al mundial en Corea del Sur.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta">
+    <div class="cta-box">
+      <span class="cta-emoji" style="animation: float 3s ease-in-out infinite;">🚀</span>
+      <h2 class="cta-title">¡Vamos, <span>Tintina</span>!</h2>
+      <p class="cta-desc">
+        Desde el Colegio Secundario Tintina acompañamos con orgullo el trabajo y la dedicación de cada uno de nuestros equipos. El esfuerzo de estos jóvenes demuestra que desde nuestra ciudad también se construye el futuro tecnológico de Argentina.
+      </p>
+      <a href="https://www.coparobotica.com/" target="_blank" class="btn btn-primary" style="position:relative;">
+        Seguir la competencia →
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>
+      © 2026 Colegio Secundario Tintina · Santiago del Estero, Argentina &nbsp;|&nbsp;
+      <a href="https://www.coparobotica.com/" target="_blank">coparobotica.com</a> &nbsp;|&nbsp;
+      FM Voces en el Aire 95.5 MHz
+    </p>
+  </footer>
+
+  <script>
+    // Intersection Observer para animar cards al entrar al viewport
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(el => {
+        if (el.isIntersecting) {
+          el.target.style.animationPlayState = 'running';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.status-card, .premio-card, .tl-item').forEach(el => {
+      el.style.animationPlayState = 'paused';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
